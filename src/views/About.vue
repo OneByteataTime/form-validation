@@ -1,5 +1,14 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h1>Profile</h1>
+    <Profile />
   </div>
 </template>
+<script lang="ts">
+import Vue from 'vue'
+import Profile from '../components/Profile.vue'
+
+export default Vue.extend({
+  components: { Profile }
+})
+</script>
