@@ -80,7 +80,7 @@ export default (Vue as VueConstructor<Vue & Refs>).extend({
                 (v: string) => !!v || 'Name is required',
                 (v: string) => (v && v.length < 25) || 'Name must be less than 25 characters'
             ],
-            lastnameRules: Array<boolean>(),
+            lastnameRules: Array<(v: string) => boolean | string>(),
             hasLastnameRules: [
                 (v: string) => (!!v && v.length > 3) || 'Name must be more than 3 characters'
             ]
@@ -107,7 +107,7 @@ export default (Vue as VueConstructor<Vue & Refs>).extend({
     onKeyUp(e: any) {
       var name = e.target.value
       if (name.length > 0) {
-        //this.lastnameRules = this.hasLastnameRules  
+        this.lastnameRules = this.hasLastnameRules  
       }
       if (name.length === 0){
         this.lastnameRules = []
