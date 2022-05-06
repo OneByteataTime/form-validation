@@ -95,7 +95,7 @@ export default (Vue as VueConstructor<Vue & Refs>).extend({
     },
     validate () {
       if (this.$refs?.form.validate()) {
-        this.result = "Will continue"
+        this.result = "Let's rock! Profile data accepted."
       } else {
         this.result = "Stop right there!"
       }
