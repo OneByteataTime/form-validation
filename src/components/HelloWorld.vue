@@ -3,20 +3,39 @@
     <v-row class="text-center">
       {{ msg }}
     </v-row>
+    <v-form ref="form" lazy-validation>
+      <v-row>
+        <v-col cols=6>
+          <BusinessContact />
+        </v-col>
+
+      </v-row>
+    </v-form>
+    
   </v-container>
 </template>
 
 <script lang="ts">
-  import Vue from 'vue'
+  import Vue, { VueConstructor } from 'vue'
+  import BusinessContact from '@/components/forms/BusinessContact.vue'
 
-  export default Vue.extend({
+  interface Refs {
+      $refs: {
+          form: HTMLFormElement
+      }
+  }
+
+  export default (Vue as VueConstructor<Vue & Refs>).extend({
     name: 'HelloWorld',
+    components: { BusinessContact },
     props: { 
       msg: String 
     },
-    data: () => ({
-      
-    }),
+    data: function () {
+      return {
+        companyName: ''
+      } 
+    }
   })
 </script>
 <style scoped>

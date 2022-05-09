@@ -5,7 +5,6 @@
       color="teal"
       dark
     >
-      <GlobalNav />
       <div class="d-flex align-center">
         <v-toolbar-title>JasTech Insurance</v-toolbar-title>
       </div>
@@ -29,8 +28,7 @@ import GlobalNav from '@/components/layout/GlobalNav.vue'
 
 export default Vue.extend({
   name: 'App',
-  components: { 
-    GlobalNav 
+  components: {  
   },
   data: () => ({
     //
