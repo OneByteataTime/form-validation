@@ -1,5 +1,5 @@
 <template>
-    <v-card flat class="">
+    <v-card flat class="" :loading="isLoading">
         <div class="form-group-header">
             <v-card-title>Contact Details</v-card-title>
         </div>
@@ -28,6 +28,7 @@
 </template>
 <script lang="ts">
 import Vue, { VueConstructor } from 'vue'
+import QuoteService from '@/services/quote-service'
 
 interface Refs {
     $refs: {
@@ -39,15 +40,28 @@ export default (Vue as VueConstructor<Vue & Refs>).extend({
     data: function () {
         return {
             companyName: "",
-            personName: "Steve",
-            personRules: [
-                (v: string) => (!!v && v.length > 3) || 'Name must be more than 3 characters'
-            ]
+            personName: "",
+            personRules:  [
+                (v: string) => v.length > 3 || 'Name must be more than 3 characters'
+            ],
+            isLoading: true
         }
+    },
+    async created () {
+        this.isLoading = true
+        const quote = await QuoteService.getQuote(2)
+            .then(quote => {
+                if (quote)
+                {
+                    this.companyName = quote.businessContactDetail.companyName
+                    this.personName = quote.businessContactDetail.personName
+                }
+                this.isLoading = false
+                this.$parent.$emit('dataLoaded')
+            })
     },
     mounted () {
         this.$refs.companyInput.focus()
-        this.$refs.companyInput.form?.validate()
     }
 })
 </script>

@@ -3,7 +3,7 @@
     <v-row class="text-center">
       {{ msg }}
     </v-row>
-    <v-form ref="form" lazy-validation>
+    <v-form ref="form" lazy-validation @dataLoaded="onLoadingComplete">
       <v-row>
         <v-col cols=6>
           <BusinessContact />
@@ -35,12 +35,17 @@
       return {
         companyName: ''
       } 
+    },
+    methods: {
+      onLoadingComplete () {
+        console.log('Data is loaded:', this.$refs)
+        this.$refs.form.validate();
+      }
     }
   })
 </script>
 <style scoped>
   div {
-    margin-top: 2em;
     font-size: 1.5em;
     color: teal;
   }  
