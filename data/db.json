@@ -6,6 +6,10 @@
             "businessContactDetail": {
                 "companyName": "",
                 "personName": ""
+            },
+            "address": {
+                "addressLine1": "",
+                "addressLine2": ""
             }
         },
         {
@@ -13,7 +17,11 @@
             "number": "300 000 0011",
             "businessContactDetail": {
                 "companyName": "JasTech, LLC",
-                "personName": "Steve Jackson"
+                "personName": "Steve "
+            },
+            "address": {
+                "addressLine1": "1600 Pennsylvania Ave.",
+                "addressLine2": ""
             }
         }
     ]

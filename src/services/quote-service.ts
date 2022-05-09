@@ -11,10 +11,10 @@ class QuoteService {
         return new Promise(resolve => setTimeout(resolve, ms))
     }
 
-    async getQuote(id: number): Promise<Quote | undefined> {
+    async getQuote(id: number, delay: number): Promise<Quote | undefined> {
         const url = `http://localhost:3000/quotes/${id}`
 
-        await this.sleep(5000)
+        await this.sleep(delay)
         
         const quote = await fetch(url)
             .then(this.isOk)

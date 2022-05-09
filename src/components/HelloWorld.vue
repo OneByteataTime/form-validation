@@ -8,7 +8,9 @@
         <v-col cols=6>
           <BusinessContact />
         </v-col>
-
+        <v-col cols= 6>
+          <Address />
+        </v-col>
       </v-row>
     </v-form>
     
@@ -18,6 +20,7 @@
 <script lang="ts">
   import Vue, { VueConstructor } from 'vue'
   import BusinessContact from '@/components/forms/BusinessContact.vue'
+  import Address from '@/components/forms/Address.vue'
 
   interface Refs {
       $refs: {
@@ -27,7 +30,7 @@
 
   export default (Vue as VueConstructor<Vue & Refs>).extend({
     name: 'HelloWorld',
-    components: { BusinessContact },
+    components: { BusinessContact, Address },
     props: { 
       msg: String 
     },
@@ -38,7 +41,6 @@
     },
     methods: {
       onLoadingComplete () {
-        console.log('Data is loaded:', this.$refs)
         this.$refs.form.validate();
       }
     }

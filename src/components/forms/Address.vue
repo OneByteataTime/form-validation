@@ -1,26 +1,25 @@
 <template>
     <v-card flat class="" :loading="isLoading" :disabled="isLoading">
         <div class="form-group-header">
-            <v-card-title>Business Contact</v-card-title>
+            <v-card-title>Address</v-card-title>
         </div>
         
-        <v-card-text ref="companyInput">
+        <v-card-text ref="streetInput">
             <v-text-field 
-            v-model="companyName"
-            :title="companyName"
-            label="Company Name"
-            :rules="[v => !!v || 'Company name is required.']"
+            v-model="addressLine1"
+            :title="addressLine1"
+            label="Address"
+            :rules="[v => !!v || 'Street address is required.']"
             clearable required aria-required="required">
           </v-text-field>
         </v-card-text>
         <v-card-text>
             <v-text-field
-            @focus="onFocus"
-            hint="Please enter first and last name."
-            v-model="personName"
-            :title="personName"
-            label="Person Name"
-            :rules="personRules"
+            validate-on-blur
+            v-model="addressLine2"
+            :title="addressLine2"
+            label="Address Line 2"
+            :rules="[]"
             clearable required aria-required="required">
           </v-text-field>
         </v-card-text>
@@ -39,26 +38,19 @@ interface Refs {
 export default (Vue as VueConstructor<Vue & Refs>).extend({
     data: function () {
         return {
-            companyName: "",
-            personName: "",
-            personRules:  [
-                (v: string) => (!!v && v.length > 3) || 'Name must follow pattern.'
-            ],
+            addressLine1: "",
+            addressLine2: "",
             isLoading: true
         }
     },
-    methods: {
-        onFocus (e : Event) {
-            console.log(e)
-        }
-    },
     async created () {
-        const quote = await QuoteService.getQuote(2, 4000)
+        this.isLoading = true
+        const quote = await QuoteService.getQuote(2, 2000)
             .then(quote => {
                 if (quote)
                 {
-                    this.companyName = quote.businessContactDetail.companyName
-                    this.personName = quote.businessContactDetail.personName
+                    this.addressLine1 = quote.address.addressLine1
+                    this.addressLine2 = quote.address.addressLine2
                 }
                 this.isLoading = false
                 this.$parent.$emit('dataLoaded')
