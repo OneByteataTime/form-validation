@@ -1,5 +1,5 @@
 <template>
-    <v-card flat class="" :loading="isLoading" :disabled="isLoading">
+    <v-card flat class="" :disabled="this.envelope.isLoading">
         <div class="form-group-header">
             <v-card-title>Address</v-card-title>
         </div>
@@ -26,8 +26,9 @@
     </v-card>
 </template>
 <script lang="ts">
-import Vue, { VueConstructor } from 'vue'
+import Vue, { PropType, VueConstructor } from 'vue'
 import QuoteService from '@/services/quote-service'
+import { QuoteEnvelope } from '@/models/quote'
 
 interface Refs {
     $refs: {
@@ -36,25 +37,24 @@ interface Refs {
     }
 }
 export default (Vue as VueConstructor<Vue & Refs>).extend({
+    props: {
+        envelope: { type: Object as PropType<QuoteEnvelope>, required: true }
+    },
     data: function () {
         return {
             addressLine1: "",
-            addressLine2: "",
-            isLoading: true
+            addressLine2: ""
         }
     },
-    async created () {
-        this.isLoading = true
-        const quote = await QuoteService.getQuote(2, 2000)
-            .then(quote => {
-                if (quote)
-                {
-                    this.addressLine1 = quote.address.addressLine1
-                    this.addressLine2 = quote.address.addressLine2
-                }
-                this.isLoading = false
-                this.$parent.$emit('dataLoaded')
-            })
+    updated () {
+        console.log('Address updated')
+    },
+    created () {
+        this.addressLine1 = this.$props.envelope.quote.address.addressLine1
+        this.addressLine2 = this.$props.envelope.quote.address.addressLine2
+    },
+    mounted () {
+        console.log("Address mounted...")
     }
 })
 </script>
