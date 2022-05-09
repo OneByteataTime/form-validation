@@ -15,9 +15,22 @@ export interface Quote {
     address: Address;
 }
 
-export class QuoteEnvelope {
-    constructor(public isLoading: boolean, public quote: Quote | undefined) {
-        this.isLoading = isLoading
+export class ContactInput implements BusinessContactDetail {
+    constructor (public companyName: string, public personName: string) {
+        this.companyName = companyName
+        this.personName = personName
+    }
+}
+
+export class AddressInput implements Address {
+    constructor(public addressLine1: string, public addressLine2: string) {
+        this.addressLine1 = addressLine1
+        this.addressLine2 = addressLine2
+    }
+}
+
+export class WorkingQuote {
+    constructor (public quote: Quote | undefined) {
         this.quote = quote ? quote : this.getDefaultQuote()
     }
 
