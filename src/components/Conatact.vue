@@ -59,11 +59,14 @@ import { mapState } from 'vuex'
     created () {
       console.log('Contact created')
       this.companyName = "created"
-      this.$store.dispatch('workingStorage/fetchQuote', 1)
+      this.$store.dispatch('workingStorage/fetchQuote', 2)
     },
     mounted () {
       console.log('Contact mounted...')
       this.companyName = "mounted..."
+    },
+    updated () {
+      console.log('Contact updated...')
     },
     watch: {
       isLoading(now: boolean, then: boolean) {

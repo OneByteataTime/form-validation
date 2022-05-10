@@ -1,6 +1,5 @@
-import { Address, AddressInput, BusinessContactDetail, ContactInput, Quote, WorkingQuote } from '@/models/quote'
 import Vue from 'vue'
-import Vuex, { Action, ActionTree, StoreOptions } from 'vuex'
+import Vuex, { StoreOptions } from 'vuex'
 import { workingStorage } from './workingStorage'
 import { RootState } from './types'
 
