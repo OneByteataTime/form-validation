@@ -4,7 +4,7 @@ class QuoteService {
 
 
     isOk(response: Response) {
-        return response.ok ? response.json() : Promise.reject('Failed to load data from server')
+        return response.ok ? response.json() : Promise.reject(response)
     }    
 
     private async sleep(ms: number) {
@@ -22,7 +22,7 @@ class QuoteService {
                 return data as Quote
             })
             .catch(error => {
-                console.log(error)
+                console.log('Fetch error:', error)
                 return undefined
             })
         

@@ -6,8 +6,8 @@
         
         <v-card-text ref="companyInput">
             <v-text-field 
-            v-model="this.$props.contact.companyName"
-            :title="this.$props.contact.companyName"
+            v-model="companyName"
+            :title="companyName"
             label="Company Name"
             :rules="[v => !!v || 'Company name is required.']"
             @change="onCompanyInputChange"
@@ -18,8 +18,8 @@
             <v-text-field
             @focus="onFocus"
             hint="Please enter first and last name."
-            v-model="this.$props.contact.personName"
-            :title="this.$props.contact.personName"
+            v-model="personName"
+            :title="personName"
             label="Person Name"
             :rules="personRules"
             clearable required aria-required="required">
@@ -30,7 +30,9 @@
 </template>
 <script lang="ts">
 import Vue, { PropType, VueConstructor } from 'vue'
-import { BusinessContactDetail, Quote, QuoteEnvelope } from '@/models/quote'
+import { BusinessContactDetail, Quote } from '@/models/quote'
+import { mapState } from 'vuex'
+import { QuoteState, RootState } from '@/store/types'
 
 interface Refs {
     $refs: {
@@ -41,15 +43,23 @@ interface Refs {
 export default (Vue as VueConstructor<Vue & Refs>).extend({
     props: {
         isLoading: Boolean,
-        contact: { type: Object as PropType<BusinessContactDetail>, required: true }
     },
     data: function () {
         return {
-            businessContact: new QuoteEnvelope(false, undefined).quote?.businessContactDetail,
+            businessContact: '',
             personRules:  [
                 (v: string) => (!!v && v.length > 3) || 'Name must follow pattern.'
             ],
         }
+    },
+    computed: {
+        ...mapState('workingStorage', {
+            companyName: (state: any) => { 
+                console.log('Current State', state) 
+                state.workingQuote.businessContactDetail.companyName 
+            },
+            personName: (state: any) => state.workingQuote.businessContactDetail.personName
+        })
     },
     methods: {
         onFocus (e : Event) {
@@ -60,7 +70,7 @@ export default (Vue as VueConstructor<Vue & Refs>).extend({
         },
         onCompanyInputChange(value: string) {
             if (this.businessContact) {
-                this.businessContact.companyName = value
+                this.businessContact = value
             }
         }
     },

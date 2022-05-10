@@ -1,5 +1,5 @@
 <template>
-    <v-card flat class="" :disabled="this.envelope.isLoading">
+    <v-card flat class="" :disabled="isLoading">
         <div class="form-group-header">
             <v-card-title>Address</v-card-title>
         </div>
@@ -27,8 +27,7 @@
 </template>
 <script lang="ts">
 import Vue, { PropType, VueConstructor } from 'vue'
-import QuoteService from '@/services/quote-service'
-import { QuoteEnvelope } from '@/models/quote'
+import { mapState } from 'vuex'
 
 interface Refs {
     $refs: {
@@ -38,20 +37,24 @@ interface Refs {
 }
 export default (Vue as VueConstructor<Vue & Refs>).extend({
     props: {
-        envelope: { type: Object as PropType<QuoteEnvelope>, required: true }
+        isLoading: Boolean
     },
     data: function () {
         return {
-            addressLine1: "",
-            addressLine2: ""
+            message: ''
         }
+    },
+    computed: {
+        ...mapState('workingStorage', {
+            addressLine1: (state: any) => state.workingQuote.address.addressLine1,
+            addressLine2: (state: any) => state.workingQuote.address.addressLine2
+        })
     },
     updated () {
         console.log('Address updated')
     },
     created () {
-        this.addressLine1 = this.$props.envelope.quote.address.addressLine1
-        this.addressLine2 = this.$props.envelope.quote.address.addressLine2
+        console.log('Address created...')
     },
     mounted () {
         console.log("Address mounted...")

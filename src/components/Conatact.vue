@@ -3,14 +3,14 @@
     <v-row class="text-center">
       {{ msg }}
     </v-row>
-    <v-card flat :loading="this.envelope.isLoading">
+    <v-card flat :loading="isLoading">
       <v-form ref="form" lazy-validation @dataLoaded="onLoadingComplete">
         <v-row>
           <v-col cols=6>
-            <BusinessContact :isLoading="isLoading" :contact="envelope.quote.businessContactDetail" />
+            <BusinessContact :isLoading="isLoading" />
           </v-col>
           <v-col cols= 6>
-            <Address :envelope="envelope"/>
+            <Address :isLoading="isLoading" />
           </v-col>
         </v-row>
       </v-form>
@@ -24,7 +24,7 @@
   import BusinessContact from '@/components/forms/BusinessContact.vue'
   import Address from '@/components/forms/Address.vue'
   import QuoteService from '@/services/quote-service'
-  import { QuoteEnvelope, Quote } from '@/models/quote'
+import { mapState } from 'vuex'
 
   interface Refs {
       $refs: {
@@ -41,39 +41,36 @@
     data: function () {
       return {
         companyName: '',
-        envelope: new QuoteEnvelope(true, undefined),
-        isLoading: true
       } 
+    },
+    computed: {
+        ...mapState('workingStorage', {
+            isLoading: (state: any) => state.isFetching
+        })
     },
     methods: {
       onLoadingComplete () {
         this.$refs.form.validate();
       },
       onClick(e: Event) {
-        this.envelope = new QuoteEnvelope(false, undefined)
+        this.companyName = "Clicked"
       }
     },
-    async created () {
-      console.log('Hello World created')
+    created () {
+      console.log('Contact created')
       this.companyName = "created"
-      const quote = await QuoteService.getQuote(1, 4000)
-        .then(quote => {
-            console.log('Hello world quote fetched...')
-            this.envelope = new QuoteEnvelope(false, quote)
-            this.isLoading = false
-        })
+      this.$store.dispatch('workingStorage/fetchQuote', 1)
     },
     mounted () {
-      console.log('HelloWorld mounted...')
+      console.log('Contact mounted...')
       this.companyName = "mounted..."
     },
     watch: {
-      envelope(now: QuoteEnvelope, then: QuoteEnvelope) {
-        console.log('HelloWorld envelope changed...')
-        if (now.quote) {
-          console.log("validate form...")
+      isLoading(now: boolean, then: boolean) {
+        if (now == false) {
           this.$refs.form.validate()
         }
+        console.log(`IsLoading was: ${then} and now: ${now}`)
       }
     }
   })

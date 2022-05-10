@@ -4,10 +4,12 @@ import { ActionTree } from "vuex";
 import { QuoteState, RootState } from "../types";
 
 export const actions: ActionTree<QuoteState, RootState> = {
-    fetchQuote({ commit }): any {
-        QuoteService.getQuote(1, 4000)
+    fetchQuote({ commit }, id: number): any {
+        commit('setIsFetching', true)
+        QuoteService.getQuote(id, 4000)
             .then((quote: Quote | undefined) => {
-                commit('quoteLoaded', quote)
-            })    
+                commit('updateQuote', quote)
+                commit('setIsFetching', false)
+            })
     }
 }

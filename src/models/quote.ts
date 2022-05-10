@@ -29,7 +29,7 @@ export class AddressInput implements Address {
     }
 }
 
-export class WorkingQuote {
+export class QuoteFactory {
     constructor (public quote: Quote | undefined) {
         this.quote = quote ? quote : this.getDefaultQuote()
     }

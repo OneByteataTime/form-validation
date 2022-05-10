@@ -1,4 +1,4 @@
-import { ContactInput, AddressInput, WorkingQuote } from "@/models/quote";
+import { ContactInput, AddressInput, Quote } from "@/models/quote";
 
 export const state = {
 
@@ -10,5 +10,6 @@ export interface RootState {
 export interface QuoteState {
     contactInput?: ContactInput;
     addressInput?: AddressInput;
-    quote?: WorkingQuote
+    workingQuote?: Quote;
+    isFetching: Boolean;
 }

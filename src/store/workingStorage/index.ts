@@ -1,4 +1,4 @@
-import { AddressInput, ContactInput, WorkingQuote } from '@/models/quote'
+import { AddressInput, ContactInput, QuoteFactory } from '@/models/quote'
 import { Module } from 'vuex'
 import { QuoteState, RootState } from '../types'
 import { actions } from './actions'
@@ -8,10 +8,11 @@ import { mutations } from './mutations'
 export const state: QuoteState = {
     contactInput: new ContactInput('', ''),
     addressInput: new AddressInput('',''),
-    quote: new WorkingQuote(undefined)
+    workingQuote: new QuoteFactory(undefined).quote,
+    isFetching: true
 }
 
-const namespaced: boolean = true
+const namespaced = true
 
 export const workingStorage: Module<QuoteState, RootState> = {
     namespaced,
