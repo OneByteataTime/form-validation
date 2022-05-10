@@ -1,4 +1,4 @@
-import { Quote } from "@/models/quote";
+import { Quote, WorkingQuote } from "@/models/quote";
 import { GetterTree } from "vuex";
 import { QuoteState, RootState } from "../types";
 
@@ -10,7 +10,7 @@ export interface Getters {
     [GetterTypes.GET_QUOTE](state: QuoteState): 
 }
 export const getters: GetterTree<QuoteState, RootState> = {
-    workingQuote(state): Quote {
-        return state.workingQuote
+    workingQuote(state): WorkingQuote | undefined {
+        return state.quote ?? undefined
     }
 }
