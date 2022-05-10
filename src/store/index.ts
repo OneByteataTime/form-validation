@@ -1,29 +1,17 @@
-import { AddressInput, BusinessContactDetail, ContactInput, Quote, WorkingQuote } from '@/models/quote'
+import { Address, AddressInput, BusinessContactDetail, ContactInput, Quote, WorkingQuote } from '@/models/quote'
 import Vue from 'vue'
-import Vuex from 'vuex'
+import Vuex, { Action, ActionTree } from 'vuex'
+import { RootState } from './types'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store: StoreOptions<RootState> = {
   state: {
-    contactInput: new ContactInput('', ''),
-    addressInput: new AddressInput('', ''),
-    workingQuote: new WorkingQuote(undefined)
-  },
-  getters: {
-  },
-  mutations: {
-    setWorkingQuote(state, quote) {
-      state.workingQuote = quote
-    },
-    updateContact(state, contact: BusinessContactDetail) {
-      if (state.workingQuote.quote) {
-        state.workingQuote.quote.businessContactDetail = contact
-      }
-    }
-  },
-  actions: {
+    version: '1.0.0'
   },
   modules: {
+    workingStorage
   }
-})
+}
+
+export default new Vuex.Store<RootState>(store)
