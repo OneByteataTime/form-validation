@@ -23,7 +23,7 @@ class QuoteService {
             })
             .catch(error => {
                 console.log('Fetch error:', error)
-                return undefined
+                return null
             })
         
         return quote ?? undefined

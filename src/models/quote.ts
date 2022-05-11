@@ -6,19 +6,22 @@ export interface Address {
 export interface BusinessContactDetail {
     companyName: string;
     personName: string;
+    number: string;
 }
 
 export interface Quote {
     id: number;
     number: string;
+    effectiveDate: string;
     businessContactDetail: BusinessContactDetail;
     address: Address;
 }
 
 export class ContactInput implements BusinessContactDetail {
-    constructor (public companyName: string, public personName: string) {
+    constructor (public companyName: string, public personName: string, public number: string) {
         this.companyName = companyName
         this.personName = personName
+        this.number = number
     }
 }
 
@@ -30,7 +33,7 @@ export class AddressInput implements Address {
 }
 
 export class QuoteFactory {
-    constructor (public quote: Quote | undefined) {
+    constructor (public quote?: Quote) {
         this.quote = quote ? quote : this.getDefaultQuote()
     }
 
@@ -40,7 +43,8 @@ export class QuoteFactory {
             number: '',
             businessContactDetail: {
                 personName: '',
-                companyName: ''
+                companyName: '',
+                number: ''
             } as BusinessContactDetail,
             address: {
                 addressLine1: '',

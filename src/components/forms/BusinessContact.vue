@@ -25,7 +25,6 @@
             clearable required aria-required="required">
           </v-text-field>
         </v-card-text>
-        <v-btn @click="onClick">Click me</v-btn>
     </v-card>
 </template>
 <script lang="ts">
@@ -56,7 +55,7 @@ export default (Vue as VueConstructor<Vue & Refs>).extend({
         ...mapState('workingStorage', {
             companyName: (state: any) => { 
                 console.log('Current State', state) 
-                state.workingQuote.businessContactDetail.companyName 
+                return state.workingQuote.businessContactDetail.companyName 
             },
             personName: (state: any) => state.workingQuote.businessContactDetail.personName
         })
