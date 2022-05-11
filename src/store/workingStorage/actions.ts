@@ -1,11 +1,15 @@
 import { Quote } from "@/models/quote";
 import QuoteService from "@/services/quote-service";
-import { mapActions } from "vuex";
-import { ActionTreeAdaptor, QuoteState, RootState, StoreModules } from "../types";
+import { ActionContext, ActionMethod, mapActions } from "vuex";
+import { QuoteState, RootState, StoreModules } from "../types";
 import { QuoteStateMutations } from "./mutations";
 
 export type Actions = {
-    fetchQuote: ( id: number ) => Promise<void>
+    fetchQuote: (id: number) => Promise<void>
+}
+
+export type ActionTreeAdaptor<Type extends Record<string, ActionMethod>, QuoteState, RootState> = {
+    [Key in keyof Type]: (a: ActionContext<QuoteState, RootState>, ...p: Parameters<Type[Key]>) => ReturnType<Type[Key]>;
 }
 
 export const actions: ActionTreeAdaptor<Actions, QuoteState, RootState> = {

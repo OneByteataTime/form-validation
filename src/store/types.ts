@@ -15,7 +15,3 @@ export interface QuoteState {
 export enum StoreModules {
     WorkingStorage = "workingStorage"
 }
-
-export type ActionTreeAdaptor<Type extends Record<string, ActionMethod>, QuoteState, RootState> = {
-    [Key in keyof Type]: (a: ActionContext<QuoteState, RootState>, ...p: Parameters<Type[Key]>) => ReturnType<Type[Key]>;
-}

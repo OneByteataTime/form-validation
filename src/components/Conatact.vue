@@ -41,7 +41,11 @@ import { mappedState } from '@/store/workingStorage'
     internalFetchQuoteAsync(): void
   }
 
-  export default (Vue as VueConstructor<Vue & Refs>).extend({
+  type Computed = QuoteState & {
+    isLoading: Boolean
+  }
+
+  export default (Vue as VueConstructor<Vue & Refs>).extend<Methods>({
     name: 'HelloWorld',
     components: { BusinessContact, Address, InfoBar },
     props: { 
