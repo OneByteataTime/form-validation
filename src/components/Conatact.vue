@@ -17,7 +17,7 @@
         </v-row>
       </v-form>
     </v-card>
-    <v-alert shaped outlined type="warning" @click="onClick">{{number}}</v-alert> 
+    <v-alert shaped outlined type="warning" @click="onClick">{{ quoteNumber }}</v-alert> 
   </v-container>
 </template>
 
@@ -30,6 +30,7 @@
 import { QuoteState, StoreModules } from '@/store/types'
 import { mappedActions, Actions } from '@/store/workingStorage/actions'
 import { mappedState } from '@/store/workingStorage'
+import { Getters, mappedGetters } from '@/store/workingStorage/getters'
 
   interface Refs {
       $refs: {
@@ -38,20 +39,29 @@ import { mappedState } from '@/store/workingStorage'
   }
   
   type Methods = Actions & {
-    internalFetchQuoteAsync(): void
+    onLoadingComplete(): void,
+    onClick (e: Event): void
   }
 
-  type Computed = QuoteState & {
-    isLoading: Boolean
+  type Computed = QuoteState & Getters
+
+  interface Data {
+    quoteIds: Array<number>;
+    currentIndex: number;
+    companyName: string;
   }
 
-  export default (Vue as VueConstructor<Vue & Refs>).extend<Methods>({
-    name: 'HelloWorld',
+  interface Props {
+    msg: string;
+  }
+
+  export default (Vue as VueConstructor<Vue & Refs>).extend<Data, Methods, Computed, Props>({
+    name: 'Contact',
     components: { BusinessContact, Address, InfoBar },
     props: { 
-      msg: String 
+      msg: String
     },
-    data: function () {
+    data () {
       return {
         companyName: '',
         quoteIds: [ 1, 2, 3, 4],
@@ -60,12 +70,7 @@ import { mappedState } from '@/store/workingStorage'
     },
     computed: {
       ...mappedState,
-      ...mapState(StoreModules.WorkingStorage, {
-          isLoading: (state: any) => (state as QuoteState).isFetching,
-          number: (state: any) => state.workingQuote.number,
-          customerNumber: (state: any) => state.workingQuote.businessContactDetail.number,
-          name: (state: any) => state.workingQuote.businessContactDetail.companyName
-      })
+      ...mappedGetters
     },
     methods: {
       ...mappedActions,
