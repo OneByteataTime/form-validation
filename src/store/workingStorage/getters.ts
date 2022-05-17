@@ -15,6 +15,7 @@ export interface Getters {
     quoteNumber: string;
     customerNumber: string;
     personName: string;
+    name: string;
     isLoading: boolean;
 }
 
@@ -31,6 +32,9 @@ export const getters: GetterTreeAdaptor<Getters, QuoteState, RootState> = {
     personName (state): string {
         return state.workingQuote?.businessContactDetail.personName ?? ''
     },
+    name (state): string {
+      return state.workingQuote?.businessContactDetail.companyName ?? ''  
+    },
     isLoading (state): boolean {
         return state.isFetching
     }
@@ -41,5 +45,6 @@ export const mappedGetters = mapGetters(StoreModules.WorkingStorage, [
     'quoteNumber',
     'customerNumber',
     'personName',
+    'name',
     'isLoading'
 ])

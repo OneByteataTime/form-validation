@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols=12>
-        <InfoBar :customerName="name" :customerNumber="customerNumber" :number="number" />
+        <InfoBar :customerName="name" :customerNumber="customerNumber" :number="quoteNumber" />
       </v-col>
     </v-row>
     <v-card flat :loading="isLoading">
@@ -17,7 +17,7 @@
         </v-row>
       </v-form>
     </v-card>
-    <v-alert shaped outlined type="warning" @click="onClick">{{ quoteNumber }}</v-alert> 
+    <v-alert class="clickable" shaped outlined type="warning" @click="onClick">{{ quoteNumber }}</v-alert> 
   </v-container>
 </template>
 
@@ -27,10 +27,10 @@
   import BusinessContact from '@/components/forms/BusinessContact.vue'
   import Address from '@/components/forms/Address.vue'
   import InfoBar from '@/components/global/InfoBar.vue'
-import { QuoteState, StoreModules } from '@/store/types'
-import { mappedActions, Actions } from '@/store/workingStorage/actions'
-import { mappedState } from '@/store/workingStorage'
-import { Getters, mappedGetters } from '@/store/workingStorage/getters'
+  import { QuoteState, StoreModules } from '@/store/types'
+  import { mappedActions, Actions } from '@/store/workingStorage/actions'
+  import { mappedState } from '@/store/workingStorage'
+  import { Getters, mappedGetters } from '@/store/workingStorage/getters'
 
   interface Refs {
       $refs: {
@@ -112,5 +112,8 @@ import { Getters, mappedGetters } from '@/store/workingStorage/getters'
   } 
   .my-form {
     padding-top: 1em;
-  } 
+  }
+  .clickable {
+    cursor: pointer;
+  }
 </style>

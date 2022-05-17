@@ -25,6 +25,8 @@
               @change="onChange"
               :rules="lastnameRules"
               clearable
+              hint="Enter 3 or more characters"
+              validate-on-blur
             ></v-text-field>
           </v-col>
           <v-col cols="12">
