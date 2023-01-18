@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols=12>
-        <InfoBar :customerName="name" :customerNumber="customerNumber" :number="number" />
+        <InfoBar :customerName="name" :customerNumber="customerNumber" :number="quoteNumber" />
       </v-col>
     </v-row>
     <v-card flat :loading="isLoading">
@@ -17,7 +17,7 @@
         </v-row>
       </v-form>
     </v-card>
-    <v-alert shaped outlined type="warning" @click="onClick">{{ quoteNumber }}</v-alert> 
+    <v-alert class="clickable" shaped outlined type="warning" @click="onClick">{{ quoteNumber }}</v-alert> 
   </v-container>
 </template>
 
@@ -112,5 +112,8 @@
   } 
   .my-form {
     padding-top: 1em;
-  } 
+  }
+  .clickable {
+    cursor: pointer;
+  }
 </style>

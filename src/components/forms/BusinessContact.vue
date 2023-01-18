@@ -21,7 +21,7 @@
             v-model="personName"
             :title="personName"
             label="Person Name"
-            :rules="personRules"
+            :rules="defaultPersonRules"
             clearable required aria-required="required">
           </v-text-field>
         </v-card-text>
@@ -49,6 +49,7 @@ export default (Vue as VueConstructor<Vue & Refs>).extend({
             personRules:  [
                 (v: string) => (!!v && v.length > 3) || 'Name must follow pattern.'
             ],
+            defaultPersonRules: []
         }
     },
     computed: {

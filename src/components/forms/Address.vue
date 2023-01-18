@@ -20,6 +20,7 @@
             :title="addressLine2"
             label="Address Line 2"
             :rules="[]"
+            hint="Optional"
             clearable required aria-required="required">
           </v-text-field>
         </v-card-text>
