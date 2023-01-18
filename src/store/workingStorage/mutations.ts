@@ -8,10 +8,10 @@ export enum QuoteStateMutations {
 }
 
 export const mutations: MutationTree<QuoteState> = {
-    updateQuote(state, payload?: Quote) {
+    [QuoteStateMutations.UpdateQuote](state, payload?: Quote) {
         state.workingQuote = new QuoteFactory(payload).quote
     },
-    setIsFetching(state, payload: boolean) {
+    [QuoteStateMutations.SetIsFetching](state, payload: boolean) {
         state.isFetching = payload
     }
 }

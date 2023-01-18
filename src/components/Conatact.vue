@@ -27,10 +27,10 @@
   import BusinessContact from '@/components/forms/BusinessContact.vue'
   import Address from '@/components/forms/Address.vue'
   import InfoBar from '@/components/global/InfoBar.vue'
-import { QuoteState, StoreModules } from '@/store/types'
-import { mappedActions, Actions } from '@/store/workingStorage/actions'
-import { mappedState } from '@/store/workingStorage'
-import { Getters, mappedGetters } from '@/store/workingStorage/getters'
+  import { QuoteState, StoreModules } from '@/store/types'
+  import { mappedActions, Actions } from '@/store/workingStorage/actions'
+  import { mappedState } from '@/store/workingStorage'
+  import { Getters, mappedGetters } from '@/store/workingStorage/getters'
 
   interface Refs {
       $refs: {
